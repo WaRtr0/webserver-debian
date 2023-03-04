@@ -2,7 +2,7 @@
 
 <h1 align="center">Debian Web Server</h1>
 
-[Debian](https://www.debian.org/) - [Apache](https://httpd.apache.org/) - [Nginx](https://nginx.org/) - [iRedMail](https://github.com/iredmail/iRedMail) - [certbot](https://certbot.eff.org/)
+[Debian](https://www.debian.org/) - [Apache](https://httpd.apache.org/) - [Nginx](https://nginx.org/) - [iRedMail](https://github.com/iredmail/iRedMail) - [certbot](https://certbot.eff.org/) - [Fail2ban](https://www.fail2ban.org/) - [Php](https://www.php.net/) - [NodeJs](https://nodejs.org/) - [Phusion Passenger](https://github.com/phusion/passenger)
 
 # About
 
