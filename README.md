@@ -16,7 +16,7 @@ I'm still a student so don't imagine a perfect thing, I count on your help to im
 
 # Work environment
 
-  Virutal Priveate Server of [Contabo](https://contabo.com/)
+  Virutal Private Server of [Contabo](https://contabo.com/)
   
   - OS : Debian 11 (bullsere) x86_64
   - Shell : Bash 5.1.4
