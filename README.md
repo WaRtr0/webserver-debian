@@ -6,7 +6,13 @@
 
 # About
 
-description
+New project! I have been working in a Debian and Plesk environment for a very long time.
+
+But I decided to stop working with Plesk which does all the work for me 😅.
+
+So I'm challenging myself to create a small tool to install a web server as well as complementary tools for example to add clients with a chroot that will host their sites...
+
+I'm still a student so don't imagine a perfect thing, I count on your help to improve this project 😉
 
 # Contact
 
