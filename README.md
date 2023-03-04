@@ -14,6 +14,37 @@ So I'm challenging myself to create a small tool to install a web server, with a
 
 I'm still a student so don't imagine a perfect thing, I count on your help to improve this project 😉
 
+# Work environment
+
+  Virutal Priveate Server of Contabo
+  
+  - OS : Debian 11 (bullsere) x86_64
+  - Shell : Bash 5.1.4
+  - CPU : AMD EPYC 7282 (6) @ 2.799GHz
+  - Memory :  16 GB
+
+  Software
+  
+  - putty
+  - nano 😂 & sublime/vs code
+
+# Requirement
+  
+  Minimum Requirement
+  
+  - OS : Debian / ubuntu
+  - Stockage : 25Gb
+  - Memory : 3 Gb
+  - Fresh Server with ssh...
+  
+  Recommended Requirement
+  
+  - OS : Debian 11
+  - Stockage : 200 Gb
+  - memory : 8Gb
+
+# Install
+
 # Contact
 
 Discord : WaRtrO#6293
