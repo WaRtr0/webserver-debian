@@ -67,6 +67,21 @@ You have some questions at the beginning, please fill them in correctly, without
 
 After these questions the script will install most of the things we need on the server. You can go have a little coffee 😂
 
+Reboot your machine when the installation is complete
+```
+Reboot
+```
+For a question of security, I recommend you to disable the possibility to connect in ssh with a root user
+For this go to :
+```
+nano /etc/ssh/sshd_config
+```
+and modify the line (121) where you have "PermitRootLogin yes" and replace "yes" by "no" then save & restart ssh service.
+```
+systemctl restart sshd
+```
+Finish, now you have to log in with the user that was created with the script.
+
 # Contact
 
 Discord : WaRtrO#6293
