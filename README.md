@@ -35,14 +35,14 @@ I'm still a student so don't imagine a perfect thing, I count on your help to im
   Minimum Requirement
   
   - OS : Debian / ubuntu
-  - Stockage : 25Gb
+  - Storage : 25Gb
   - Memory : 3 Gb
   - Fresh Server with ssh...
   
   Recommended Requirement
   
   - OS : Debian 11
-  - Stockage : 200 Gb
+  - Storage : 200 Gb
   - Memory : 8Gb
 
 # Install
