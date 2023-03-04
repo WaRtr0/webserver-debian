@@ -155,8 +155,18 @@ export FAIL2BAN_DB_PASSWD='$(date +%N"$passRootMysql$organisationName" | sha256s
 #EOF
 EOF
 
-bash iRedMail.sh
+apt install expect -y
 
+cat << EOF > execScript.sh
+#!/usr/bin/expect -f
+set timeout -1
+spawn bash iRedMail.sh
+expect {< Question > Use it for mail server setting? \[y|N\]}
+send -- "y\r"
+expect eof
+EOF
+
+source execScript.sh
 
 ##conf apache
 
@@ -208,7 +218,7 @@ cat << EOF > /etc/apache2/sites-available/default.conf
 		SSLEngine on
 
 		SSLCertificateFile /etc/ssl/certs/ssl-cert-snakeoil.pem
-        SSLCertificateKeyFile /etc/ssl/private/ssl-cert-snakeoil.key
+        	SSLCertificateKeyFile /etc/ssl/private/ssl-cert-snakeoil.key
 
 		<Directory "/var/www/vhosts/default/var/app/www/cgi-bin">
 			AllowOverride None
