@@ -1,4 +1,5 @@
-[![License][https://img.shields.io/badge/license-MIT-green]][https://github.com/WaRtrO89/webserver-debian/blob/main/LICENSE] [![works badge](https://cdn.jsdelivr.net/gh/nikku/works-on-my-machine@v0.2.0/badge.svg)](https://github.com/nikku/works-on-my-machine)
+[![License](https://img.shields.io/badge/license-MIT-green.svg)](https://github.com/WaRtrO89/webserver-debian/blob/main/LICENSE)
+
 
 <h1 align="center">Debian Web Server</h1>
 
@@ -85,6 +86,7 @@ Finish, now you have to log in with the user that was created with the script.
 # Contact
 
 Discord : WaRtrO#6293
+
 [![LinkedIn][linkedin-shield]][linkedin-url]
 
 [linkedin-shield]: https://img.shields.io/badge/-LinkedIn-black.svg?style=for-the-badge&logo=linkedin&colorB=555
