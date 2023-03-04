@@ -1,4 +1,4 @@
-[![License](https://img.shields.io/badge/license-MIT-green.svg)](https://github.com/WaRtrO89/webserver-debian/blob/main/LICENSE)
+![GitHub](https://img.shields.io/github/license/WaRtrO89/webserver-debian) ![GitHub top language](https://img.shields.io/github/languages/top/WaRtrO89/webserver-debian) ![GitHub repo size](https://img.shields.io/github/repo-size/WaRtrO89/webserver-debian) ![GitHub Repo stars](https://img.shields.io/github/stars/WaRtrO89/webserver-debian) ![GitHub repo directory count](https://img.shields.io/github/directory-file-count/WaRtrO89/webserver-debian) ![GitHub watchers](https://img.shields.io/github/watchers/WaRtrO89/webserver-debian) ![GitHub followers](https://img.shields.io/github/followers/WaRtrO89) ![GitHub contributors](https://img.shields.io/github/contributors/WaRtrO89/webserver-debian) ![GitHub last commit (branch)](https://img.shields.io/github/last-commit/WaRtrO89/webserver-debian/main) 
 
 
 <h1 align="center">Debian Web Server</h1>
