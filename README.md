@@ -6,7 +6,7 @@
 
 # About
 
-New project! I have been working in a Debian and Plesk environment for a very long time.
+New project! I have been working in a Debian and [Plesk](https://www.plesk.com/) environment for a very long time.
 
 But I decided to stop working with Plesk which does all the work for me 😅.
 
@@ -16,7 +16,7 @@ I'm still a student so don't imagine a perfect thing, I count on your help to im
 
 # Work environment
 
-  Virutal Priveate Server of Contabo
+  Virutal Priveate Server of [Contabo](https://contabo.com/)
   
   - OS : Debian 11 (bullsere) x86_64
   - Shell : Bash 5.1.4
@@ -41,7 +41,7 @@ I'm still a student so don't imagine a perfect thing, I count on your help to im
   
   - OS : Debian 11
   - Stockage : 200 Gb
-  - memory : 8Gb
+  - Memory : 8Gb
 
 # Install
 
