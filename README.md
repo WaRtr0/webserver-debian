@@ -47,6 +47,23 @@ I'm still a student so don't imagine a perfect thing, I count on your help to im
 
 # Install
 
+It is highly recommended to be a root user!
+
+Install git to clone the script :
+```
+apt install git -y
+```
+
+Download the script :
+```
+git clone https://github.com/WaRtrO89/webserver-debian.git
+```
+Run the script
+```
+bash webserver-debian/install.sh
+```
+
+cd
 # Contact
 
 Discord : WaRtrO#6293
