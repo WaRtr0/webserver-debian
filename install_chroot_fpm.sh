@@ -33,9 +33,13 @@ After=network.target
 [Service]
 Type=notify
 RootDirectory=/var/www/vhosts/$user
+MountAPIVFS=true
+RuntimeDirectory=/run
+RemoveIPC=true
+PrivateTmp=true
 ExecStart=/usr/sbin/php-fpm$version --nodaemonize --fpm-config /etc/php/$version/fpm/php-fpm.conf
-ExecStartPost=-/usr/lib/php/php-fpm-socket-helper install /run/php/php-fpm.sock /etc/php/$version/fpm/pool.d/www.conf 81
-ExecStopPost=-/usr/lib/php/php-fpm-socket-helper remove /run/php/php-fpm.sock /etc/php/$version/fpm/pool.d/www.conf 81
+ExecStartPost=-/usr/lib/php/php-fpm-socket-helper install /run/php/php-fpm.sock /etc/php/$version/fpm/pool.d/www.conf "${version/./}"
+ExecStopPost=-/usr/lib/php/php-fpm-socket-helper remove /run/php/php-fpm.sock /etc/php/$version/fpm/pool.d/www.conf "${version/./}"
 ExecReload=/bin/kill -USR2 \$MAINPID
 
 [Install]
