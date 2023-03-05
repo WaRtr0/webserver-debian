@@ -1,5 +1,14 @@
 #!/usr/bin
 
+################################################################################
+#
+# Test to install inside the php-fpm x version chroot
+# It runs through the root (outside the chroot) by systemd
+# No problems during start up
+# But when we go to the site using the sock, we have a "file no found"...
+#
+################################################################################
+
 #User create by "webserver add user"
 read -p 'User :' user
 read -p 'php version [8.2] : ' -i '8.2' version 
