@@ -242,6 +242,10 @@ cat << EOF > /etc/apache2/sites-available/default.conf
 </IfModule>
 EOF
 
+curl -sSL https://packages.sury.org/php/README.txt | bash -x
+apt update -y
+apt upgrade -y
+
 #echo 'ChrootDir "/var/www/vhosts"' > /etc/apache2/apache2.conf
 
 #to be continued...
