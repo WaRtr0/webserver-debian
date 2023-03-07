@@ -1,11 +1,6 @@
 #!/bin/bash
 
-if [[ -d /etc/webserver ]]
-then
-	cd /etc/webserver/tools
-else
-	exit 0;
-fi
+cd /etc/webserver/tools
 
 IFS='/' read -a chemin <<<$(pwd)
 delete=(etc tools)
