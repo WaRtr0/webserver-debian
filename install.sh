@@ -248,4 +248,18 @@ apt upgrade -y
 
 #echo 'ChrootDir "/var/www/vhosts"' > /etc/apache2/apache2.conf
 
+curl -sSL https://packages.sury.org/php/README.txt | sudo bash -x
+sudo apt update
+
+#install cerbot = certificate ssl
+
+apt install snapd -y
+
+snap install core
+snap refresh core
+
+snap install --classic certbot
+
+ln -s /snap/bin/certbot /usr/bin/certbot
+
 #to be continued...
