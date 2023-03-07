@@ -262,4 +262,14 @@ snap install --classic certbot
 
 ln -s /snap/bin/certbot /usr/bin/certbot
 
+#install tools 
+mkdir /etc/webserver
+cd /etc/webserver
+git clone https://github.com/WaRtrO89/webserver-debian.git
+mv webserver-debian/tools/ tools/
+rm -r webserver-debian
+mkdir certificate
+
+ln -s /etc/webserver/tools/init.sh /bin/webserver
+
 #to be continued...
