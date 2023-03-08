@@ -53,7 +53,7 @@ hostnamectl set-hostname "webserver.$organisationDomain"
 apt install git imagemagick ffmpeg libvips libvips-tools libreoffice sudo -y
 
 #install passenger
-apt install dirmngr gcc gzip dialog gnupg apt-transport-https ca-certificates curl -y
+apt install dirmngr gcc gzip dialog gnupg apt-transport-https ca-certificates mariadb-server curl -y
 
 curl https://oss-binaries.phusionpassenger.com/auto-software-signing-gpg-key.txt | gpg --dearmor | sudo tee /etc/apt/trusted.gpg.d/phusion.gpg >/dev/null
 
@@ -271,5 +271,57 @@ rm -r webserver-debian
 mkdir certificate
 
 ln -s /etc/webserver/tools/init.sh /bin/webserver
+
+
+apt install php-pear apache2-dev gcc make zlib1g zlib1g-dev libpcre2-posix2 libpcre2-dev -y
+
+
+#install memcached
+
+apt install memcached libmemcached-tools -y
+apt install python3-pymemcache libcache-memcached-libmemcached-perl -y
+systemctl start memcached
+systemctl enable memcached
+
+cat << EOF > /etc/memcached.conf
+-l 127.0.0.1
+-U 0
+-p 11211
+-u memcache
+-m 500
+EOF
+
+apt install php-redis php-opcache php-memcache php-memcached -y
+
+#install xcahce
+
+apt install php-xcache -y
+
+cd /home/$defaultUser
+mkdir xcache
+cd xcache
+
+git clone https://git.lighttpd.net/xcache/xcache.git
+
+cd xcache
+
+phpize && ./configure --with-php-config=/usr/bin/php-config8.2 --enable-xcache --enable-xcache-optimizer --enable-xcache-coverager
+make && make install
+
+#install suhosin / snuffleupagus (security for php)
+
+#apt install php8.2-dev -y
+#git clone https://github.com/jvoisin/snuffleupagus
+#phpize
+#./configure --enable-snuffleupagus
+#make
+#make install
+#cat << EOF > /etc/php/8.2/mods-available/snuffleupagus.ini
+#extension=snuffleupagus.so
+#sp.allow_broken_configuration=on
+#sp.configuration_file=/dev/null
+#EOF
+#ln -s /etc/php/8.2/mods-available/snuffleupagus.ini /etc/php/8.2/fpm/conf.d/30-snuffleupagus.ini
+
 
 #to be continued...
