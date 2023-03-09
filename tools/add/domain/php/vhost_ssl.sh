@@ -17,11 +17,10 @@ cat << EOF > "/etc/apache2/sites-available/$DOMAIN.conf"
 		CustomLog "/var/www/vhosts/$USER/var/app/system/logs/$DOMAIN/access_ssl.log" combined
 		DocumentRoot "/var/www/vhosts/$USER/var/app/www/$DOMAIN/httpdocs"
 
-		SSLEngine on
-		SSLVerifyClient none
-		SSLCertificateChainFile /etc/letsencrypt/live/$DOMAIN/fullchain.pem
+		Include /etc/letsencrypt/options-ssl-apache.conf
+		SSLCertificateFile /etc/letsencrypt/live/$DOMAIN/fullchain.pem
 		SSLCertificateKeyFile /etc/letsencrypt/live/$DOMAIN/privkey.pem
-		SSLCertificateFile /etc/letsencrypt/live/$DOMAIN/cert.pem
+
 
 		TimeOut 1000
 
@@ -69,9 +68,10 @@ cat << EOF > "/etc/apache2/sites-available/$DOMAIN.conf"
 	DocumentRoot "/var/www/vhosts/$USER/var/app/www/$DOMAIN/httpdocs"
 
 	<IfModule mod_rewrite.c>
-		RewriteEngine On
-		RewriteCond %{HTTPS} off
-		RewriteRule ^ https://%{HTTP_HOST}%{REQUEST_URI} [R=301,L,QSA]
+		RewriteEngine on
+		RewriteCond %{SERVER_NAME} =www.$DOMAIN [OR]
+		RewriteCond %{SERVER_NAME} =$DOMAIN
+		RewriteRule ^ https://%{SERVER_NAME}%{REQUEST_URI} [END,NE,R=permanent]
 	</IfModule>
 </VirtualHost>
 EOF
