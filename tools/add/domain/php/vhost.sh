@@ -42,7 +42,7 @@ cat << EOF > "/etc/apache2/sites-available/$DOMAIN.conf"
 	ErrorDocument 503 /error/maintenance.html
 
 	<Directory /var/www/vhosts/$USER/var/app/www/$DOMAIN>
-		Options -FollowSymLinks -Indexes
+		Options FollowSymLinks Indexes
 		AllowOverride AuthConfig FileInfo Indexes Limit Options=Indexes,SymLinksIfOwnerMatch,MultiViews,ExecCGI,Includes,IncludesNOEXEC
 	</Directory>
 </VirtualHost>
