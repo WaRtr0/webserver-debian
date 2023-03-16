@@ -166,7 +166,7 @@ send -- "y\r"
 expect eof
 EOF
 
-source execScript.sh
+/bin/bash execScript.sh
 
 ##conf apache
 
