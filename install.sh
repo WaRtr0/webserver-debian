@@ -163,10 +163,16 @@ set timeout -1
 spawn bash iRedMail.sh
 expect {< Question > Use it for mail server setting? \[y|N\]}
 send -- "y\r"
+expect {< Question > File: /etc/nftables.conf, with SSHD ports: 22. \[Y|n\]}
+send -- "y\r"
+expect {< Question > Restart firewall now (with ssh ports: 22)? \[y|N\]}
+send -- "y\r"
 expect eof
 EOF
 
-/bin/bash execScript.sh
+chmod u+x execScript.sh
+
+./execScript.sh
 
 ##conf apache
 
