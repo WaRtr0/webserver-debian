@@ -278,6 +278,7 @@ mkdir certificate
 
 ln -s /etc/webserver/tools/init.sh /bin/webserver
 
+chmod +x /etc/webserver/tools/init.sh
 
 apt install php-pear apache2-dev gcc make zlib1g zlib1g-dev libpcre2-posix2 libpcre2-dev -y
 
