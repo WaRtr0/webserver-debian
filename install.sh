@@ -2,12 +2,12 @@
 
 #default
 
-iRedMailLink='https://github.com/iredmail/iRedMail/archive/refs/tags/1.6.2.tar.gz'
+#iRedMail_bug#iRedMailLink='https://github.com/iredmail/iRedMail/archive/refs/tags/1.6.2.tar.gz'
 organisationName='virtualutiliy'
 organisationDomain='virtualutiliy.net'
 defaultUser='defaultuser'
 passRootMysql=$(date +%S"webserverpassRootMysql" | sha256sum | base64 | head -c 32)
-passFirstMail=$(date +%N"webserverpassFirstMail" | sha256sum | base64 | head -c 32)
+#iRedMail_bug#passFirstMail=$(date +%N"webserverpassFirstMail" | sha256sum | base64 | head -c 32)
 #\default
 
 read -p 'Organisation Name : ' -i $organisationName organisationName
@@ -15,7 +15,7 @@ read -p 'Organisation Domain : ' -i $organisationDomain organisationDomain
 read -p 'Default username for all access outside the chroot : ' -i $defaultUser defaultUser
 adduser "$defaultUser"
 read -s -p 'STRONG Pass Mysql root : ' -i $passRootMysql passRootMysql
-read -s -p 'STRONG Pass first mail : ' -i $passFirstMail passFirstMail
+#iRedMail_bug#read -s -p 'STRONG Pass first mail : ' -i $passFirstMail passFirstMail
 
 #uninstall VNC (For contabo)
 #apt remove xfce4 xfce4-goodies tightvncserver dbus-x11 vncviewer xvnc4viewer -y
@@ -125,11 +125,11 @@ systemctl stop apache2
 
 cd /home/$defaultUser
 
-wget $iRedMailLink
+#iRedMail_bug#wget $iRedMailLink
 
-tar zxf *.tar.gz
-rm *.tar.gz
-cd */
+#iRedMail_bug#tar zxf *.tar.gz
+#iRedMail_bug#rm *.tar.gz
+#iRedMail_bug#cd */
 
 cat << EOF > config
 export STORAGE_BASE_DIR='/var/vmail'
@@ -157,22 +157,22 @@ EOF
 
 apt install expect -y
 
-cat << EOF > execScript.sh
-#!/usr/bin/expect -f
-set timeout -1
-spawn bash iRedMail.sh
-expect {< Question > Use it for mail server setting? \[y|N\]}
-send -- "y\r"
-expect {< Question > File: /etc/nftables.conf, with SSHD ports: 22. \[Y|n\]}
-send -- "y\r"
-expect {< Question > Restart firewall now (with ssh ports: 22)? \[y|N\]}
-send -- "y\r"
-expect eof
-EOF
+#iRedMail_bug#cat << EOF > execScript.sh
+#iRedMail_bug##!/usr/bin/expect -f
+#iRedMail_bug#set timeout -1
+#iRedMail_bug#spawn bash iRedMail.sh
+#iRedMail_bug#expect {< Question > Use it for mail server setting? \[y|N\]}
+#iRedMail_bug#send -- "y\r"
+#iRedMail_bug#expect {< Question > File: /etc/nftables.conf, with SSHD ports: 22. \[Y|n\]}
+#iRedMail_bug#send -- "y\r"
+#iRedMail_bug#expect {< Question > Restart firewall now (with ssh ports: 22)? \[y|N\]}
+#iRedMail_bug#send -- "y\r"
+#iRedMail_bug#expect eof
+#iRedMail_bug#EOF
 
-chmod u+x execScript.sh
+#iRedMail_bug#chmod u+x execScript.sh
 
-./execScript.sh
+#iRedMail_bug#./execScript.sh
 
 ##conf apache
 
@@ -297,22 +297,22 @@ cat << EOF > /etc/memcached.conf
 -m 500
 EOF
 
-apt install php-redis php-opcache php-memcache php-memcached -y
+#apt install php-redis php-opcache php-memcache php-memcached -y
 
-#install xcahce
+#install xcachce
 
-apt install php-xcache -y
+#apt install php-xcache -y
 
-cd /home/$defaultUser
-mkdir xcache
-cd xcache
+#cd /home/$defaultUser
+#mkdir xcache
+#cd xcache
 
-git clone https://git.lighttpd.net/xcache/xcache.git
+#git clone https://git.lighttpd.net/xcache/xcache.git
 
-cd xcache
+#cd xcache
 
-phpize && ./configure --with-php-config=/usr/bin/php-config8.2 --enable-xcache --enable-xcache-optimizer --enable-xcache-coverager
-make && make install
+#phpize && ./configure --with-php-config=/usr/bin/php-config8.2 --enable-xcache --enable-xcache-optimizer --enable-xcache-coverager
+#make && make install
 
 #install suhosin / snuffleupagus (security for php)
 
