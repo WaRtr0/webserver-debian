@@ -6,7 +6,7 @@
 organisationName='virtualutiliy'
 organisationDomain='virtualutiliy.net'
 defaultUser='defaultuser'
-passRootMysql=$(date +%S"webserverpassRootMysql" | sha256sum | base64 | head -c 32)
+#iRedMail_bug#passRootMysql=$(date +%S"webserverpassRootMysql" | sha256sum | base64 | head -c 32)
 #iRedMail_bug#passFirstMail=$(date +%N"webserverpassFirstMail" | sha256sum | base64 | head -c 32)
 #\default
 
@@ -14,7 +14,7 @@ read -p 'Organisation Name : ' -i $organisationName organisationName
 read -p 'Organisation Domain : ' -i $organisationDomain organisationDomain
 read -p 'Default username for all access outside the chroot : ' -i $defaultUser defaultUser
 adduser "$defaultUser"
-read -s -p 'STRONG Pass Mysql root : ' -i $passRootMysql passRootMysql
+#iRedMail_bug#read -s -p 'STRONG Pass Mysql root : ' -i $passRootMysql passRootMysql
 #iRedMail_bug#read -s -p 'STRONG Pass first mail : ' -i $passFirstMail passFirstMail
 
 #uninstall VNC (For contabo)
@@ -329,5 +329,7 @@ EOF
 #EOF
 #ln -s /etc/php/8.2/mods-available/snuffleupagus.ini /etc/php/8.2/fpm/conf.d/30-snuffleupagus.ini
 
+echo "Installation MySQL : "
 
+mysql_secure_installation
 #to be continued...
