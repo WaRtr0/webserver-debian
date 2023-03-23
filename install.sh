@@ -343,4 +343,8 @@ EOF
 echo "Installation MySQL : "
 
 mysql_secure_installation
+
+systemctl enable nginx.service
+systemctl start nginx.service
+
 #to be continued...
