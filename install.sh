@@ -347,4 +347,15 @@ mysql_secure_installation
 systemctl enable nginx.service
 systemctl start nginx.service
 
+rm /etc/nginx/sites-enabled/*
+rm /etc/nginx/sites-available/*
+
+cat << EOF > /etc/nginx/sites-available/1-apache
+upstream apache{
+    server 127.0.0.1:8080;
+}
+EOF
+
+ln -s /etc/nginx/sites-available/1-apache /etc/nginx/sites-enabled/
+
 #to be continued...
