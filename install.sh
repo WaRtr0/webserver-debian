@@ -187,8 +187,18 @@ chown -R www-data:www-data /var/www/vhosts/default/var/app
 
 rm /etc/apache2/sites-available/*
 
+cat << EOF > /etc/apache2/ports.conf
+Listen 127.0.0.1:7780
+<IfModule ssl_module>
+        Listen 127.0.0.1:7443
+</IfModule>
+<IfModule mod_gnutls.c>
+        Listen 127.0.0.1:7443
+</IfModule>
+EOF
+
 cat << EOF > /etc/apache2/sites-available/default.conf
-<VirtualHost $varip:80>
+<VirtualHost 127.0.0.1:7780>
 	ServerName "default"
 	UseCanonicalName Off
 	DocumentRoot "/var/www/vhosts/default/var/app/www/default"
@@ -215,7 +225,7 @@ cat << EOF > /etc/apache2/sites-available/default.conf
 </VirtualHost>
 
 <IfModule mod_ssl.c>
-	<VirtualHost $varip:443>
+	<VirtualHost 127.0.0.1:7443>
 		ServerName "default"
 		UseCanonicalName Off
 		DocumentRoot "/var/www/vhosts/default/var/app/www/default"
