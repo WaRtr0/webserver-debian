@@ -115,36 +115,6 @@ systemctl stop apache2
 
 cd /home/$defaultUser
 
-#iRedMail_bug#wget $iRedMailLink
-
-#iRedMail_bug#tar zxf *.tar.gz
-#iRedMail_bug#rm *.tar.gz
-#iRedMail_bug#cd */
-
-cat << EOF > config
-export STORAGE_BASE_DIR='/var/vmail'
-export DISABLE_WEB_SERVER='YES'
-export WEB_SERVER=''
-export BACKEND_ORIG='MARIADB'
-export BACKEND='MYSQL'
-export USE_FAIL2BAN='YES'
-export DOMAIN_ADMIN_PASSWD_PLAIN='$passFirstMail'
-export MYSQL_ROOT_PASSWD='$passRootMysql'
-export FIRST_DOMAIN='$organisationDomain'
-export VMAIL_DB_BIND_PASSWD='$(date +%N"$passRootMysql$organisationName" | sha256sum | base64 | head -c 32)'
-export VMAIL_DB_ADMIN_PASSWD='$(date +%N"$passRootMysql$organisationName" | sha256sum | base64 | head -c 32)'
-export MLMMJADMIN_API_AUTH_TOKEN='$(date +%N"$passRootMysql$organisationName" | sha256sum | base64 | head -c 32)'
-export NETDATA_DB_PASSWD='$(date +%N"$passRootMysql$organisationName" | sha256sum | base64 | head -c 32)'
-export AMAVISD_DB_PASSWD='$(date +%N"$passRootMysql$organisationName" | sha256sum | base64 | head -c 32)'
-export IREDADMIN_DB_PASSWD='$(date +%N"$passRootMysql$organisationName" | sha256sum | base64 | head -c 32)'
-export RCM_DB_PASSWD='$(date +%N"$passRootMysql$organisationName" | sha256sum | base64 | head -c 32)'
-export SOGO_DB_PASSWD='$(date +%N"$passRootMysql$organisationName" | sha256sum | base64 | head -c 32)'
-export SOGO_SIEVE_MASTER_PASSWD='$(date +%s"$passRootMysql$organisationName" | sha256sum | base64 | head -c 32)'
-export IREDAPD_DB_PASSWD='$(date +%N"$passRootMysql$organisationName" | sha256sum | base64 | head -c 32)'
-export FAIL2BAN_DB_PASSWD='$(date +%N"$passRootMysql$organisationName" | sha256sum | base64 | head -c 32)'
-#EOF
-EOF
-
 apt install expect -y
 
 ##conf apache
