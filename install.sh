@@ -1,26 +1,16 @@
 #!/bin/bash
 
-#default
 
-#iRedMail_bug#iRedMailLink='https://github.com/iredmail/iRedMail/archive/refs/tags/1.6.2.tar.gz'
 organisationName='virtualutiliy'
 organisationDomain='virtualutiliy.net'
 defaultUser='defaultuser'
-#iRedMail_bug#passRootMysql=$(date +%S"webserverpassRootMysql" | sha256sum | base64 | head -c 32)
-#iRedMail_bug#passFirstMail=$(date +%N"webserverpassFirstMail" | sha256sum | base64 | head -c 32)
-#\default
+
 
 read -p 'Organisation Name : ' -i $organisationName organisationName
 read -p 'Organisation Domain : ' -i $organisationDomain organisationDomain
 read -p 'Default username for all access outside the chroot : ' -i $defaultUser defaultUser
 adduser "$defaultUser"
-#iRedMail_bug#read -s -p 'STRONG Pass Mysql root : ' -i $passRootMysql passRootMysql
-#iRedMail_bug#read -s -p 'STRONG Pass first mail : ' -i $passFirstMail passFirstMail
 
-#uninstall VNC (For contabo)
-#apt remove xfce4 xfce4-goodies tightvncserver dbus-x11 vncviewer xvnc4viewer -y
-
-#see later...
 apt install nginx -y
 systemctl stop nginx
 systemctl disable nginx
@@ -157,23 +147,6 @@ EOF
 
 apt install expect -y
 
-#iRedMail_bug#cat << EOF > execScript.sh
-#iRedMail_bug##!/usr/bin/expect -f
-#iRedMail_bug#set timeout -1
-#iRedMail_bug#spawn bash iRedMail.sh
-#iRedMail_bug#expect {< Question > Use it for mail server setting? \[y|N\]}
-#iRedMail_bug#send -- "y\r"
-#iRedMail_bug#expect {< Question > File: /etc/nftables.conf, with SSHD ports: 22. \[Y|n\]}
-#iRedMail_bug#send -- "y\r"
-#iRedMail_bug#expect {< Question > Restart firewall now (with ssh ports: 22)? \[y|N\]}
-#iRedMail_bug#send -- "y\r"
-#iRedMail_bug#expect eof
-#iRedMail_bug#EOF
-
-#iRedMail_bug#chmod u+x execScript.sh
-
-#iRedMail_bug#./execScript.sh
-
 ##conf apache
 
 a2dissite 000-default.conf
@@ -307,38 +280,6 @@ cat << EOF > /etc/memcached.conf
 -u memcache
 -m 500
 EOF
-
-#apt install php-redis php-opcache php-memcache php-memcached -y
-
-#install xcachce
-
-#apt install php-xcache -y
-
-#cd /home/$defaultUser
-#mkdir xcache
-#cd xcache
-
-#git clone https://git.lighttpd.net/xcache/xcache.git
-
-#cd xcache
-
-#phpize && ./configure --with-php-config=/usr/bin/php-config8.2 --enable-xcache --enable-xcache-optimizer --enable-xcache-coverager
-#make && make install
-
-#install suhosin / snuffleupagus (security for php)
-
-#apt install php8.2-dev -y
-#git clone https://github.com/jvoisin/snuffleupagus
-#phpize
-#./configure --enable-snuffleupagus
-#make
-#make install
-#cat << EOF > /etc/php/8.2/mods-available/snuffleupagus.ini
-#extension=snuffleupagus.so
-#sp.allow_broken_configuration=on
-#sp.configuration_file=/dev/null
-#EOF
-#ln -s /etc/php/8.2/mods-available/snuffleupagus.ini /etc/php/8.2/fpm/conf.d/30-snuffleupagus.ini
 
 echo "Installation MySQL : "
 
