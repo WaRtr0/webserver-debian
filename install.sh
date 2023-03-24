@@ -358,4 +358,23 @@ EOF
 
 ln -s /etc/nginx/sites-available/1-apache /etc/nginx/sites-enabled/
 
+apt install ufw -y
+ufw default deny incoming
+ufw default allow outgoing
+ufw allow OpenSSH
+ufw allow NginxFull
+
+cat << EOF > execUFW.sh
+#!/usr/bin/expect -f
+set timeout -1
+spawn ufw enable
+expect {Command may disrupt existing ssh connections. Proceed with operation (y|n)?}
+send -- "y\r"
+expect eof
+EOF
+
+chmod u+x execUFW.sh
+./execUFW.sh
+rm execUFW.sh
+
 #to be continued...
