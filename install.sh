@@ -15,7 +15,7 @@ apt install nginx -y
 systemctl stop nginx
 systemctl disable nginx
 
-apt install apache2 neofetch -y
+apt install apache2 openssh-server neofetch -y
 
 systemctl stop apache2
 rm -r /var/www/html/
