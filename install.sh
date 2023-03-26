@@ -17,6 +17,9 @@ systemctl disable nginx
 
 apt install apache2 openssh-server neofetch -y
 
+systemctl enable ssh
+systemctl start ssh
+
 systemctl stop apache2
 rm -r /var/www/html/
 
