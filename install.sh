@@ -360,20 +360,14 @@ group = www-data
 listen = /var/run/php/php7.3-postfix.sock
 listen.owner = www-data
 listen.group = www-data
+listen.mode = 0660
 
-pm = dynamic
+pm = ondemand
 pm.max_children = 4
-pm.start_servers = 2
-pm.min_spare_servers = 1
-pm.max_spare_servers = 3
-pm.max_requests = 200
-pm.process_idle_timeout = 10s
 
-env[tmp] = /tmp
-env[TMPDIR] = /tmp
-env[TEMP] = /tmp
-
-php_admin_value[memory_limit] = 200M
+php_admin_value['date.timezone'] = Europe/Berlin
+php_admin_value['session.save_path'] = /tmp
+php_admin_value['open_basedir'] = /tmp/:/var/www/postfixadmin/:/srv/postfixadmin/:/usr/bin/doveadm:/var/cache/postfixadmin:/var/cache/postfixadmin/template_c
 EOF
 
 systemctl enable php7.3-fpm
