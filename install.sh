@@ -291,4 +291,29 @@ chmod u+x execUFW.sh
 ./execUFW.sh
 rm execUFW.sh
 
-#to be continued...
+#install mail server
+
+
+apt install tree mailutils -y
+apt install postfix postfix-mysql -y
+apt install dovecot-mysql dovecot-pop3d dovecot-imapd dovecot-managesieved -y
+
+
+groupadd -g 5000 vmail
+useradd -g vmail -u 5000 vmail -d /var/vmail -m
+
+read -p "postfix mysql password" pmpassword
+read -p "mailuser mysql password" mmpassword
+
+mysql << EOF
+CREATE USER IF NOT EXISTS 'postfix'@'localhost' IDENTIFIED BY '$pmpassword';
+CREATE DATABASE postfix;
+GRANT ALL PRIVILEGES ON \`postfix\`.* TO 'postfix'@'localhost' WITH GRANT OPTION;
+FLUSH PRIVILEGES;
+EOF
+
+mysql << EOF
+CREATE USER IF NOT EXISTS 'mailuser'@'localhost' IDENTIFIED BY '$mmpassword';
+GRANT SELECT ON \`postfix\`.* TO 'mailuser'@'localhost';
+FLUSH PRIVILEGES;
+EOF
