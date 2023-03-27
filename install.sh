@@ -317,3 +317,88 @@ CREATE USER IF NOT EXISTS 'mailuser'@'localhost' IDENTIFIED BY '$mmpassword';
 GRANT SELECT ON \`postfix\`.* TO 'mailuser'@'localhost';
 FLUSH PRIVILEGES;
 EOF
+
+cd /srv/
+wget -O postfixadmin.tgz https://github.com/postfixadmin/postfixadmin/archive/postfixadmin-3.3.10.tar.gz
+tar -zxvf postfixadmin.tgz
+mv postfixadmin-postfixadmin-3.3* postfixadmin
+rm postfixadmin.tgz
+
+ln -s /srv/postfixadmin/public /var/www/postfixadmin
+
+cat << EOF > /srv/postfixadmin/config.local.php
+<?php
+\$CONF['database_type'] = 'mysqli';
+\$CONF['database_host'] = 'localhost';
+\$CONF['database_name'] = 'postfix';
+\$CONF['database_user'] = 'postfix';
+\$CONF['database_password'] = '$pmpassword';
+
+\$CONF['setup_password'] =  '$(php -r "echo password_hash('$pmpassword', PASSWORD_DEFAULT);")';
+\$CONF['configured'] = true;
+
+EOF
+
+mkdir -p /srv/postfixadmin/templates_c
+
+mkdir -p /srv/postfixadmin/templates_c
+chown -R www-data /srv/postfixadmin/templates_c
+
+apt install libapache2-mod-php7.3 php7.3 -y
+apt install php7.3-{curl,gd,intl,memcache,xml,zip,mbstring,redis,memcached,opcache,redis,mcrypt,xmlrpc,bcmath,mysql,fpm} -y
+
+
+cat << EOF > /etc/php/7.3/fpm/pool.d/postfix_pool.conf
+[postfix]
+user = www-data
+group = www-data
+
+listen = /var/run/php/php7.3-postfix.sock
+listen.owner = www-data
+listen.group = www-data
+
+pm = dynamic
+pm.max_children = 4
+pm.start_servers = 2
+pm.min_spare_servers = 1
+pm.max_spare_servers = 3
+pm.max_requests = 200
+pm.process_idle_timeout = 10s
+
+env[tmp] = /tmp
+env[TMPDIR] = /tmp
+env[TEMP] = /tmp
+
+php_admin_value[memory_limit] = 200M
+EOF
+
+systemctl enable php7.3-fpm
+systemctl start php7.3-fpm
+
+ufw disable
+
+/bin/certbot --nginx -d postfix.$organisationDomain -d www.postfix.$organisationDomain
+
+ufw enable
+
+##voir
+
+cat << EOF > /etc/postfix/mysql-virtual-mailbox-domains.cf
+user = mailuser
+password = $mmpassword
+hosts = 127.0.0.1
+dbname = postfix
+query = SELECT 1 FROM domain where domain='%s'
+EOF
+
+postconf -e virtual_mailbox_domains=mysql:/etc/postfix/mysql-virtual-mailbox-domains.cf
+
+cat << EOF > /etc/postfix/mysql-virtual-mailbox-maps.cf
+user = mailuser
+password = $mmpassword
+hosts = 127.0.0.1
+dbname = postfix
+query = SELECT 1 FROM mailbox where username='%s'
+EOF
+
+postconf -e virtual_mailbox_maps=mysql:/etc/postfix/mysql-virtual-mailbox-maps.cf
