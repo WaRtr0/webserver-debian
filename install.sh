@@ -468,3 +468,71 @@ postconf -e virtual_mailbox_maps=mysql:/etc/postfix/mysql-virtual-mailbox-maps.c
 grep -rl 'auth_mechanisms = plain' /etc/dovecot/conf.d/10-auth.conf | xargs sed -i 's/auth_mechanisms = plain/auth_mechanisms = plain login/g'
 grep -rl '!include auth-system.conf.ext' /etc/dovecot/conf.d/10-auth.conf | xargs sed -i 's/!include auth-system.conf.ext/#!include auth-system.conf.ext/g'
 grep -rl '#!include auth-sql.conf.ext' /etc/dovecot/conf.d/10-auth.conf | xargs sed -i 's/#!include auth-sql.conf.ext/!include auth-sql.conf.ext/g'
+grep -rl 'mail_location = mbox:~/mail:INBOX=/var/mail/%u' /etc/dovecot/conf.d/10-mail.conf | xargs sed -i 's/mail_location = mbox:~\/mail:INBOX=\/var\/mail\/%u/mail_location = maildir:\/var\/vmail\/%d\/%n\/Maildir/g'
+
+cat << EOF > /etc/dovecot/conf.d/auth-sql.conf.ext
+passdb {
+  driver = sql
+  args = /etc/dovecot/dovecot-sql.conf.ext
+}
+
+userdb {
+  driver = sql
+  args = uid=vmail gid=vmail home=/var/vmail/%d/%n
+}
+EOF
+
+cat << EOF > /etc/dovecot/conf.d/10-master.conf
+service imap-login {
+  inet_listener imap {
+  }
+  inet_listener imaps {
+  }
+}
+
+service pop3-login {
+  inet_listener pop3 {
+  }
+  inet_listener pop3s {
+  }
+}
+
+service submission-login {
+  inet_listener submission {
+  }
+}
+
+service lmtp {
+  unix_listener lmtp {
+  }
+}
+
+service imap {
+}
+
+service pop3 {
+}
+
+service submission {
+}
+
+service auth {
+  unix_listener auth-userdb {
+  }
+
+  # Postfix smtp-auth
+  unix_listener /var/spool/postfix/private/auth {
+    mode = 0666
+    user = postfix
+    group = postfix
+  }
+}
+
+service auth-worker {
+}
+
+service dict {
+  unix_listener dict {
+  }
+}
+EOF
