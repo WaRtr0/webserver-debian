@@ -464,3 +464,7 @@ query = SELECT 1 FROM mailbox where username='%s'
 EOF
 
 postconf -e virtual_mailbox_maps=mysql:/etc/postfix/mysql-virtual-mailbox-maps.cf
+
+grep -rl 'auth_mechanisms = plain' /etc/dovecot/conf.d/10-auth.conf | xargs sed -i 's/auth_mechanisms = plain/auth_mechanisms = plain login/g'
+grep -rl '!include auth-system.conf.ext' /etc/dovecot/conf.d/10-auth.conf | xargs sed -i 's/!include auth-system.conf.ext/#!include auth-system.conf.ext/g'
+grep -rl '#!include auth-sql.conf.ext' /etc/dovecot/conf.d/10-auth.conf | xargs sed -i 's/#!include auth-sql.conf.ext/!include auth-sql.conf.ext/g'
