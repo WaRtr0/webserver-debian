@@ -268,6 +268,10 @@ cat << EOF > /etc/nginx/sites-available/1-apache
 upstream apache{
     server 127.0.0.1:8080;
 }
+
+upstream apache_ssl{
+    server 127.0.0.1:8443;
+}
 EOF
 
 ln -s /etc/nginx/sites-available/1-apache /etc/nginx/sites-enabled/
