@@ -375,11 +375,75 @@ systemctl start php7.3-fpm
 
 ufw disable
 
+cat << EOF > /etc/nginx/sites-available/postfix.$organisationDomain
+server {
+        listen 80;
+        server_name www.postfix.$organisationDomain postfix.$organisationDomain;
+        root /var/www/postfixadmin;
+}
+EOF
+
+ln -s /etc/nginx/sites-available/postfix.$organisationDomain /etc/nginx/sites-enabled/
+
+systemctl restart nginx
+
 /bin/certbot --nginx -d postfix.$organisationDomain -d www.postfix.$organisationDomain
 
 ufw enable
 
-##voir
+cat << EOF > /etc/nginx/sites-available/postfix.$organisationDomain
+server {
+        listen 80;
+        server_name www.postfix.$organisationDomain postfix.$organisationDomain;
+        root /var/www/postfixadmin;
+
+        index index.php index.html;
+
+        location / {
+                try_files $uri $uri/ /index.php?$query_string;
+        }
+
+        location ~ \.php{
+                fastcgi_index index.php;
+                fastcgi_pass unix:/run/php/php7.3-postfix.sock;
+
+                include fastcgi_params;
+                fastcgi_split_path_info ^(.+\.php)(/.+)\$;
+                fastcgi_param PATH_INFO $fastcgi_path_info;
+                fastcgi_param PATH_TRANSLATED $document_root$fastcgi_path_info;
+                fastcgi_param SCRIPT_FILENAME $document_root$fastcgi_script_name;
+        }
+}
+
+server {
+        listen 443 ssl http2;
+        server_name www.postfix.$organisationDomain postfix.$organisationDomain;
+
+        include /etc/letsencrypt/options-ssl-nginx.conf;
+        ssl_certificate /etc/letsencrypt/live/postfix.$organisationDomain/fullchain.pem;
+        ssl_certificate_key /etc/letsencrypt/live/postfix.$organisationDomain/privkey.pem;
+
+        root /var/www/postfixadmin;
+        index index.php index.html;
+
+        location / {
+                try_files $uri $uri/ /index.php?$query_string;
+        }
+
+        location ~ \.php{
+                fastcgi_index index.php;
+                fastcgi_pass unix:/run/php/php7.3-postfix.sock;
+
+                include fastcgi_params;
+                fastcgi_split_path_info ^(.+\.php)(/.+)\$;
+                fastcgi_param PATH_INFO $fastcgi_path_info;
+                fastcgi_param PATH_TRANSLATED $document_root$fastcgi_path_info;
+                fastcgi_param SCRIPT_FILENAME $document_root$fastcgi_script_name;
+        }
+}
+EOF
+
+systemctl restart nginx
 
 cat << EOF > /etc/postfix/mysql-virtual-mailbox-domains.cf
 user = mailuser
