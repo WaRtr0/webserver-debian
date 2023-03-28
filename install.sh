@@ -477,7 +477,7 @@ passdb {
 }
 
 userdb {
-  driver = sql
+  driver = static
   args = uid=vmail gid=vmail home=/var/vmail/%d/%n
 }
 EOF
@@ -536,3 +536,24 @@ service dict {
   }
 }
 EOF
+
+cat << EOF >> /etc/dovecot/dovecot-sql.conf.ext
+driver = mysql
+connect = host=127.0.0.1 dbname=postfix user=mailuser password=$mmpassword
+password_query = SELECT username,domain,password FROM mailbox WHERE username='%u';
+EOF
+
+chgrp vmail /etc/dovecot/dovecot.conf
+chmod g+r /etc/dovecot/dovecot.conf
+
+service dovecot restart
+
+cat << EOF >> /etc/postfix/master.cf
+dovecot  unix  – n  n –  – pipe
+  flags=DRhu user=vmail:vmail argv=/usr/lib/dovecot/dovecot-lda -f ${sender} -d ${recipient}
+EOF
+
+service postfix restart
+
+postconf -e virtual_transport=dovecot
+postconf -e dovecot_destination_recipient_limit=1
