@@ -470,6 +470,22 @@ grep -rl '!include auth-system.conf.ext' /etc/dovecot/conf.d/10-auth.conf | xarg
 grep -rl '#!include auth-sql.conf.ext' /etc/dovecot/conf.d/10-auth.conf | xargs sed -i 's/#!include auth-sql.conf.ext/!include auth-sql.conf.ext/g'
 grep -rl 'mail_location = mbox:~/mail:INBOX=/var/mail/%u' /etc/dovecot/conf.d/10-mail.conf | xargs sed -i 's/mail_location = mbox:~\/mail:INBOX=\/var\/mail\/%u/mail_location = maildir:\/var\/vmail\/%d\/%n\/Maildir/g'
 
+cat << EOF >> /etc/dovecot/dovecot.conf
+service stats {
+    unix_listener stats-reader {
+        user = vmail
+        group = vmail
+        mode = 0660
+    }
+
+    unix_listener stats-writer {
+        user = vmail
+        group = vmail
+        mode = 0660
+    }
+}
+EOF
+
 cat << EOF > /etc/dovecot/conf.d/auth-sql.conf.ext
 passdb {
   driver = sql
@@ -549,7 +565,7 @@ chmod g+r /etc/dovecot/dovecot.conf
 service dovecot restart
 
 cat << EOF >> /etc/postfix/master.cf
-dovecot  unix  – n  n –  – pipe
+dovecot unix    -       n       n       -       -       pipe
   flags=DRhu user=vmail:vmail argv=/usr/lib/dovecot/dovecot-lda -f ${sender} -d ${recipient}
 EOF
 
@@ -557,3 +573,4 @@ service postfix restart
 
 postconf -e virtual_transport=dovecot
 postconf -e dovecot_destination_recipient_limit=1
+
