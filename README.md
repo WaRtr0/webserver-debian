@@ -29,7 +29,7 @@ I'm still a student so don't imagine a perfect thing, I count on your help to im
   Software
   
   - putty
-  - nano 😂 & sublime/vs code
+  - vim & vs code
 
 # Requirement
   
