@@ -6,6 +6,10 @@
 
 [Debian](https://www.debian.org/) - [Apache](https://httpd.apache.org/) - [Nginx](https://nginx.org/) - [iRedMail](https://github.com/iredmail/iRedMail) - [certbot](https://certbot.eff.org/) - [Fail2ban](https://www.fail2ban.org/) - [Php](https://www.php.net/) - [NodeJs](https://nodejs.org/) - [Phusion Passenger](https://github.com/phusion/passenger)
 
+> [!important]
+> As of now, I am no longer actively maintaining this project. I strongly advise against using it for personal purposes, and especially not in production environments. Feel free to browse through the code to understand its workings 😊.
+>
+> However, I welcome contributions! If you're interested in updating or improving this repository, please feel free to submit a pull request. Your input would be greatly appreciated!
 
 # About
 
