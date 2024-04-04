@@ -1,4 +1,4 @@
-![GitHub](https://img.shields.io/github/license/WaRtrO89/webserver-debian) ![GitHub top language](https://img.shields.io/github/languages/top/WaRtrO89/webserver-debian) ![GitHub repo size](https://img.shields.io/github/repo-size/WaRtrO89/webserver-debian) ![GitHub Repo stars](https://img.shields.io/github/stars/WaRtrO89/webserver-debian) ![GitHub repo directory count](https://img.shields.io/github/directory-file-count/WaRtrO89/webserver-debian) ![GitHub watchers](https://img.shields.io/github/watchers/WaRtrO89/webserver-debian) ![GitHub followers](https://img.shields.io/github/followers/WaRtrO89) ![GitHub contributors](https://img.shields.io/github/contributors/WaRtrO89/webserver-debian) ![GitHub last commit (branch)](https://img.shields.io/github/last-commit/WaRtrO89/webserver-debian/main) 
+![GitHub](https://img.shields.io/github/license/WaRtr0/webserver-debian) ![GitHub top language](https://img.shields.io/github/languages/top/WaRtr0/webserver-debian) ![GitHub repo size](https://img.shields.io/github/repo-size/WaRtr0/webserver-debian) ![GitHub Repo stars](https://img.shields.io/github/stars/WaRtr0/webserver-debian) ![GitHub repo directory count](https://img.shields.io/github/directory-file-count/WaRtr0/webserver-debian) ![GitHub watchers](https://img.shields.io/github/watchers/WaRtr0/webserver-debian) ![GitHub followers](https://img.shields.io/github/followers/WaRtr0) ![GitHub contributors](https://img.shields.io/github/contributors/WaRtr0/webserver-debian) ![GitHub last commit (branch)](https://img.shields.io/github/last-commit/WaRtr0/webserver-debian/main) 
 
 
 <h1 align="center">Debian Web Server</h1>
@@ -57,7 +57,7 @@ apt install git -y
 
 Download the script :
 ```
-git clone https://github.com/WaRtrO89/webserver-debian.git
+git clone https://github.com/WaRtr0/webserver-debian.git
 ```
 Run the script
 ```
